@@ -20,13 +20,16 @@ Or grab the [source](https://github.com/cladera/videojs-offset/dist/videojs-offs
 
 Basic usage is as follows:
 
-    videojs-offset();
+    videojs('my-video', {
+      plugins: {
+        offset: {
+          start: 10, //Start offset in seconds
+          end: 40    //End offset in seconds
+        }
+      }
+    });
 
-For advanced usage, see the documentation.
-
-## Documentation
-
-Start with `docs/MAIN.md`.
+Either start and end offset are referred to original video duration.
 
 ## Contributing
 
