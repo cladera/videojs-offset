@@ -1,0 +1,23 @@
+{
+  "name": "videojs-offset",
+  "version": "0.0.0",
+  "main": "dist/videojs-offset.min.js",
+  "description": "VideoJS plugin to play a segment of a video",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cladera/videojs-offset.git"
+  },
+  "keywords": [],
+  "author": "Carles Galan Cladera",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-jshint": "~0.6.4",
+    "grunt-contrib-uglify": "~0.2.4",
+    "grunt": "~0.4.1",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-qunit": "~0.3.0"
+  }
+}

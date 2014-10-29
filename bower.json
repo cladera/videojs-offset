@@ -1,0 +1,12 @@
+{
+  "name": "videojs-offset",
+  "version": "0.0.0",
+  "main": "dist/videojs-offset.min.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ],
+  "dependencies": {}
+}
