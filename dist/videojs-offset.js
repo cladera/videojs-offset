@@ -39,9 +39,18 @@ var vjsoffset = function(options) {
     }
     return this.duration() - curr;
   };
-  this.on('play', function(){
 
-  });
+  Player.prototype.startOffset = function(){
+    return start;
+  };
+
+  Player.prototype.endOffset = function(){
+    if(end > 0) {
+      return end;
+    }
+    return this.duration();
+  };
+
   this.on('timeupdate', function(){
     var curr = this.currentTime();
     if(curr < 0){
