@@ -1,6 +1,6 @@
 {
   "name": "videojs-offset",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "dist/videojs-offset.min.js",
   "description": "VideoJS plugin to play a segment of a video",
   "repository": {

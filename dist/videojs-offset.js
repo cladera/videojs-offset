@@ -57,7 +57,7 @@ var vjsoffset = function(options) {
       this.currentTime(0);
       this.play();
     }
-    if(curr > (end-start)) {
+    if(end > 0 && (curr > (end-start))) {
       this.currentTime(end-start);
       this.pause();
     }
