@@ -2,49 +2,53 @@
 
 // Base function.
 var vjsoffset = function(options) {
-  var Player, start, end;
+  var Player;
+  this._offsetStart = options.start || 0;
+  this._offsetEnd = options.end || 0;
+
   Player = this.constructor;
-  Player.__super__ = {
-    duration: Player.prototype.duration,
-    currentTime: Player.prototype.currentTime,
-    bufferedPercent: Player.prototype.bufferedPercent,
-    remainingTime: Player.prototype.remainingTime
-  };
-  start = options.start || 0;
-  end = options.end || 0;
+  if(!Player.__super__ || !Player.__super__.__offsetInit) {
+    Player.__super__ = {
+      __offsetInit: true,
+      duration: Player.prototype.duration,
+      currentTime: Player.prototype.currentTime,
+      bufferedPercent: Player.prototype.bufferedPercent,
+      remainingTime: Player.prototype.remainingTime
+    };
 
-  Player.prototype.duration = function(){
-    if(end > 0) {
-      return end - start;
-    }
-    return Player.__super__.duration.apply(this, arguments) - start;
-  };
+    Player.prototype.duration = function(){
+      if(this._offsetEnd > 0) {
+        return this._offsetEnd - this._offsetStart;
+      }
+      return Player.__super__.duration.apply(this, arguments) - this._offsetStart;
+    };
 
-  Player.prototype.currentTime = function(seconds){
-    if(seconds !== undefined){
-      return Player.__super__.currentTime.call(this, seconds + start) - start;
-    }
-    return Player.__super__.currentTime.apply(this, arguments) - start;
-  };
+    Player.prototype.currentTime = function(seconds){
+      if(seconds !== undefined){
+        return Player.__super__.currentTime.call(this, seconds + this._offsetStart) - this._offsetStart;
+      }
+      return Player.__super__.currentTime.apply(this, arguments) - this._offsetStart;
+    };
 
-  Player.prototype.remainingTime = function(){
-    var curr = this.currentTime();
-    if(curr < start) {
-      curr = 0;
-    }
-    return this.duration() - curr;
-  };
+    Player.prototype.remainingTime = function(){
+      var curr = this.currentTime();
+      if(curr < this._offsetStart) {
+        curr = 0;
+      }
+      return this.duration() - curr;
+    };
 
-  Player.prototype.startOffset = function(){
-    return start;
-  };
+    Player.prototype.startOffset = function(){
+      return this._offsetStart;
+    };
 
-  Player.prototype.endOffset = function(){
-    if(end > 0) {
-      return end;
-    }
-    return this.duration();
-  };
+    Player.prototype.endOffset = function(){
+      if(this._offsetEnd > 0) {
+        return this._offsetEnd;
+      }
+      return this.duration();
+    };
+  }
 
   this.on('timeupdate', function(){
     var curr = this.currentTime();
@@ -52,8 +56,8 @@ var vjsoffset = function(options) {
       this.currentTime(0);
       this.play();
     }
-    if(end > 0 && (curr > (end-start))) {
-      this.currentTime(end-start);
+    if(this._offsetEnd > 0 && (curr > (this._offsetEnd-this._offsetStart))) {
+      this.currentTime(this._offsetEnd-this._offsetStart);
       this.pause();
     }
   });
