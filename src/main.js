@@ -5,6 +5,7 @@ var vjsoffset = function(options) {
   var Player;
   this._offsetStart = options.start || 0;
   this._offsetEnd = options.end || 0;
+  this._restartBeginning = options.restart_beginning || false;
 
   Player = this.constructor;
   if(!Player.__super__ || !Player.__super__.__offsetInit) {
@@ -57,8 +58,13 @@ var vjsoffset = function(options) {
       this.play();
     }
     if(this._offsetEnd > 0 && (curr > (this._offsetEnd-this._offsetStart))) {
-      this.currentTime(this._offsetEnd-this._offsetStart);
       this.pause();
+      if (!this._restartBeginning) {
+        this.currentTime(this._offsetEnd-this._offsetStart);
+      } else {
+        this.trigger('loadstart');
+        this.currentTime(0);
+      }
     }
   });
 
