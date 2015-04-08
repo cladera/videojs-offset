@@ -24,7 +24,8 @@ Basic usage is as follows:
       plugins: {
         offset: {
           start: 10, //Start offset in seconds
-          end: 40    //End offset in seconds
+          end: 40,    //End offset in seconds
+          restart_beginning: false //Should the video go to the beginning when it ends
         }
       }
     });
