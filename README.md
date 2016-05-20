@@ -32,6 +32,17 @@ Basic usage is as follows:
 
 Either start and end offset are referred to original video duration.
 
+## Tricks
+
+If you have the [LoadProgressBar](http://docs.videojs.com/docs/api/load-progress-bar.html) component overflowing like above ![](https://cloud.githubusercontent.com/assets/4100047/11180306/b0767b24-8c7f-11e5-9f81-3893631f4807.png)  
+just add the following css : 
+
+``` css
+.vjs-load-progress {
+  overflow-x:hidden;
+}
+```
+
 ## Contributing
 
 We'll check out your contribution if you:
