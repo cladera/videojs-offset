@@ -13,7 +13,11 @@ See the [project homepage](http://cladera.github.io/videojs-offset).
 Using Bower:
 
     bower install videojs-offset
+    
+Using npm:
 
+    npm install videojs-offset
+    
 Or grab the [source](https://github.com/cladera/videojs-offset/blob/master/dist/videojs-offset.js) ([minified](https://github.com/cladera/videojs-offset/blob/master/dist/videojs-offset.min.js)).
 
 ## Usage
