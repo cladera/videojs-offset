@@ -79,7 +79,7 @@ var vjsoffset = function(options) {
 
 
 // Version.
-vjsoffset.VERSION = '1.0.0';
+vjsoffset.VERSION = '1.0.1';
 
 
 // Export to the root, which is probably `window`.
