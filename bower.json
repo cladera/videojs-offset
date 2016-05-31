@@ -1,12 +1,25 @@
 {
   "name": "videojs-offset",
-  "version": "1.0.0",
+  "description": "VideoJS plugin to play a segment of a video",
   "main": "dist/videojs-offset.min.js",
+  "authors": [
+    "Carles Galan Cladera <cgcladera@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "videojs",
+    "offset",
+    "video",
+    "html5",
+    "javascript"
+  ],
+  "homepage": "https://github.com/cladera/videojs-offset",
+  "moduleType": [],
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
-    "test"
-  ],
-  "dependencies": {}
+    "test",
+    "tests"
+  ]
 }
