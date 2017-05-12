@@ -1,23 +1,59 @@
 {
   "name": "videojs-offset",
   "version": "1.0.1",
-  "main": "dist/videojs-offset.min.js",
-  "description": "VideoJS plugin to play a segment of a video",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/cladera/videojs-offset.git"
+  "description": "VideoJs plugin to virtually \"cut\" an ondemand video",
+  "main": "dist/es5/index.js",
+  "jsnext:main": "src/js/index.js",
+  "engines": {
+    "node": ">=4.4.0"
   },
-  "keywords": [],
-  "author": "Carles Galan Cladera",
+  "generator-videojs-plugin": {
+    "version": "3.1.1"
+  },
+  "scripts": {
+    "build": "sb-build",
+    "clean": "sb-clean",
+    "lint": "sb-lint",
+    "start": "sb-start",
+    "test": "sb-test",
+    "watch": "sb-watch",
+    "prepublish": "npm run build",
+    "postversion": "sb-release"
+  },
+  "keywords": [
+    "videojs",
+    "videojs-plugin"
+  ],
+  "author": "Carles Galan Cladera <cgcladera@gmail.com>",
   "license": "MIT",
-  "readmeFilename": "README.md",
-  "dependencies": {},
+  "browserify-shim": "node_modules/videojs-spellbook/config/shim.config.js",
+  "spellbook": {
+    "css": false,
+    "lang": false,
+    "ie8": true
+  },
+  "files": [
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "README.md",
+    "dist/browser",
+    "dist/docs",
+    "dist/es5",
+    "dist/lang",
+    "docs/",
+    "index.html",
+    "src/"
+  ],
+  "dependencies": {
+    "video.js": "^5.16.0"
+  },
   "devDependencies": {
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-jshint": "~0.6.4",
-    "grunt-contrib-uglify": "~0.2.4",
-    "grunt": "~0.4.1",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-contrib-qunit": "~0.3.0"
+    "ghooks": "^1.3.2",
+    "videojs-spellbook": "^2.0.2"
+  },
+  "config": {
+    "ghooks": {
+      "pre-push": "npm run test"
+    }
   }
 }

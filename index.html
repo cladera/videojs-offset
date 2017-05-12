@@ -1,14 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <title>videojs-offset | VideoJS plugin to play a segment of a video</title>
-    <link rel="stylesheet" href="./demo/assets/normalize.css">
-  </head>
-  <body>
-    <h1>videojs-offset</h1>
-    <p>VideoJS plugin to play a segment of a video</p>
-    <p>Check out the <a href="http://cladera.github.io/videojs-offset/demo/index.html">project homepage</a>.</p>
-    <p>Check out the <a href="https://github.com/cladera/videojs-offset">source code on GitHub</a>.</p>
-    <p>Copyright 2014 Carles Galan Cladera</p>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>videojs-offset Demo</title>
+  <link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
+</head>
+<body>
+  <video id="videojs-offset-player" class="video-js vjs-default-skin" controls>
+    <source src="//vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+    <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm">
+  </video>
+  <ul>
+    <li><a href="test/">Run unit tests in browser.</a></li>
+    <li><a href="dist/docs/api/">Read generated api docs.</a></li>
+    <li><a href="dist/docs/manual/">Read generated manual docs.</a></li>
+  </ul>
+  <script src="node_modules/video.js/dist/video.js"></script>
+  <script src="dist/browser/videojs-offset.js"></script>
+  <script>
+    (function(window, videojs) {
+      var player = window.player = videojs('videojs-offset-player');
+
+      player.offset({
+        end: 30
+      });
+    }(window, window.videojs));
+  </script>
+</body>
 </html>

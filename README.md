@@ -1,51 +1,80 @@
 # videojs-offset
 
-VideoJS plugin to play a segment of a video
-
-## About
-
-A JavaScript library by Carles Galan Cladera.
-
-See the [project homepage](http://cladera.github.io/videojs-offset).
 
 ## Installation
 
-Using Bower:
+```sh
+npm install --save videojs-offset
+```
 
-    bower install videojs-offset
-    
-Using npm:
+The npm installation is preferred, but Bower works, too.
 
-    npm install videojs-offset
-    
-Or grab the [source](https://github.com/cladera/videojs-offset/blob/master/dist/videojs-offset.js) ([minified](https://github.com/cladera/videojs-offset/blob/master/dist/videojs-offset.min.js)).
+```sh
+bower install  --save videojs-offset
+```
 
 ## Usage
 
-Basic usage is as follows:
+To include videojs-offset on your website or web application, use any of the following methods.
 
-    videojs('my-video', {
-      plugins: {
-        offset: {
-          start: 10, //Start offset in seconds
-          end: 40,    //End offset in seconds
-          restart_beginning: false //Should the video go to the beginning when it ends
-        }
-      }
-    });
+### `<script>` Tag
 
-Either start and end offset are referred to original video duration.
+This is the simplest case. Get the script in whatever way you prefer and include the plugin _after_ you include [video.js][videojs], so that the `videojs` global is available.
 
-## Contributing
+```html
+<script src="//path/to/video.min.js"></script>
+<script src="//path/to/videojs-offset.min.js"></script>
+<script>
+  var player = videojs('my-video');
 
-We'll check out your contribution if you:
+  player.offset({
+    start: 10,
+    end: 300,
+    restart_beginning: false //Should the video go to the beginning when it ends
+  });
+</script>
+```
 
-* Provide a comprehensive suite of tests for your fork.
-* Have a clear and documented rationale for your changes.
-* Package these up in a pull request.
+### Browserify
 
-We'll do our best to help you out with any contribution issues you may have.
+When using with Browserify, install videojs-offset via npm and `require` the plugin as you would any other module.
+
+```js
+var videojs = require('video.js');
+
+// The actual plugin function is exported by this module, but it is also
+// attached to the `Player.prototype`; so, there is no need to assign it
+// to a variable.
+require('videojs-offset');
+
+var player = videojs('my-video');
+
+player.offset({
+  start: 10,
+  end: 300,
+  restart_beginning: false //Should the video go to the beginning when it ends
+});
+```
+
+### RequireJS/AMD
+
+When using with RequireJS (or another AMD library), get the script in whatever way you prefer and `require` the plugin as you normally would:
+
+```js
+require(['video.js', 'videojs-offset'], function(videojs) {
+  var player = videojs('my-video');
+
+  player.offset({
+    start: 10,
+    end: 300,
+    restart_beginning: false //Should the video go to the beginning when it ends
+  });
+});
+```
 
 ## License
 
-MIT. See `LICENSE.txt` in this directory.
+MIT. Copyright 2017(c) Carles Galan Cladera &lt;cgcladera@gmail.com&gt;
+
+
+[videojs]: http://videojs.com/
