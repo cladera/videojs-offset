@@ -1,5 +1,8 @@
 # videojs-offset
 
+[![Build Status](https://travis-ci.org/cladera/videojs-offset.svg?branch=master)](https://travis-ci.org/cladera/videojs-offset)
+
+[![npm version](https://badge.fury.io/js/videojs-offset.svg)](https://badge.fury.io/js/videojs-offset)
 
 ## Installation
 
