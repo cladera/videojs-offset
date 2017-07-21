@@ -22,7 +22,12 @@
       var player = window.player = videojs('videojs-offset-player');
 
       player.offset({
+        start: 5,
         end: 30
+      });
+
+      player.on('ended', () => {
+        console.log('clip ended');
       });
     }(window, window.videojs));
   </script>

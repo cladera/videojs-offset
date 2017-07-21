@@ -2,23 +2,44 @@
   "name": "videojs-offset",
   "version": "2.0.0-beta.0",
   "description": "VideoJs plugin to virtually \"cut\" an ondemand video",
-  "main": "dist/es5/index.js",
+  "main": "dist/videojs-offset.cjs.js",
   "jsnext:main": "src/js/index.js",
   "engines": {
     "node": ">=4.4.0"
   },
   "generator-videojs-plugin": {
-    "version": "3.1.1"
+    "version": "5.0.0"
   },
   "scripts": {
-    "build": "sb-build",
-    "clean": "sb-clean",
-    "lint": "sb-lint",
-    "start": "sb-start",
-    "test": "sb-test",
-    "watch": "sb-watch",
+    "prebuild": "npm run clean",
+    "build": "npm-run-all -p build:*",
+    "build:js": "npm-run-all build:js:rollup-modules build:js:rollup-umd build:js:bannerize build:js:uglify",
+    "build:js:bannerize": "bannerize dist/videojs-offset.js --banner=scripts/banner.ejs",
+    "build:js:rollup-modules": "rollup -c scripts/modules.rollup.config.js",
+    "build:js:rollup-umd": "rollup -c scripts/umd.rollup.config.js",
+    "build:js:uglify": "uglifyjs dist/videojs-offset.js --comments --mangle --compress --ie8 -o dist/videojs-offset.min.js",
+    "build:test": "rollup -c scripts/test.rollup.config.js",
+    "clean": "rimraf dist test/dist",
+    "postclean": "mkdirp dist test/dist",
+    "docs": "npm-run-all docs:*",
+    "docs:api": "jsdoc src -r -c jsdoc.json -d docs/api",
+    "docs:toc": "doctoc README.md",
+    "lint": "vjsstandard",
+    "prestart": "npm run build",
+    "start": "npm-run-all -p start:server watch",
+    "start:server": "static -a 0.0.0.0 -p 9999 -H '{\"Cache-Control\": \"no-cache, must-revalidate\"}' .",
+    "pretest": "npm-run-all lint build",
+    "test": "karma start test/karma.conf.js",
+    "preversion": "npm test",
+    "version": "node scripts/version.js",
+    "postversion": "sb-release",
+    "watch": "npm-run-all -p watch:*",
+    "watch:js-modules": "rollup -c scripts/modules.rollup.config.js -w",
+    "watch:js-umd": "rollup -c scripts/umd.rollup.config.js -w",
+    "watch:test": "rollup -c scripts/test.rollup.config.js -w",
     "prepublish": "npm run build",
-    "postversion": "sb-release"
+    "prepush": "npm run lint",
+    "precommit": "npm run docs && git add README.md"
   },
   "keywords": [
     "videojs",
@@ -33,27 +54,68 @@
     "ie8": true
   },
   "files": [
-    "CHANGELOG.md",
     "CONTRIBUTING.md",
-    "README.md",
-    "dist/browser",
-    "dist/docs",
-    "dist/es5",
-    "dist/lang",
+    "dist/",
     "docs/",
     "index.html",
-    "src/"
+    "scripts/",
+    "src/",
+    "test/"
   ],
   "dependencies": {
-    "video.js": "^5.16.0"
+    "global": "^4.3.2",
+    "video.js": "^5.19.2"
   },
   "devDependencies": {
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-transform-object-assign": "^6.8.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-es3": "^1.0.1",
+    "bannerize": "^1.0.2",
+    "conventional-changelog-cli": "^1.3.1",
+    "conventional-changelog-videojs": "^3.0.0",
+    "doctoc": "^1.3.0",
+    "es5-shim": "^4.5.9",
     "ghooks": "^1.3.2",
-    "videojs-spellbook": "^2.0.2"
+    "husky": "^0.13.3",
+    "jsdoc": "^3.4.3",
+    "karma": "~1.3.0",
+    "karma-chrome-launcher": "^2.1.1",
+    "karma-detect-browsers": "^2.2.5",
+    "karma-firefox-launcher": "^1.0.1",
+    "karma-ie-launcher": "^1.0.0",
+    "karma-qunit": "^1.2.1",
+    "karma-safari-launcher": "^1.0.0",
+    "mkdirp": "^0.5.1",
+    "node-static": "^0.7.9",
+    "npm-run-all": "^4.0.2",
+    "qunitjs": "^1.21.0",
+    "rimraf": "^2.6.1",
+    "rollup": "^0.41.6",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-json": "^2.1.1",
+    "rollup-plugin-multi-entry": "^2.0.1",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-watch": "^3.2.2",
+    "semver": "^5.3.0",
+    "sinon": "^2.2.0",
+    "uglify-js": "^3.0.7",
+    "videojs-spellbook": "^2.0.2",
+    "videojs-standard": "^6.0.0"
   },
   "config": {
     "ghooks": {
       "pre-push": "npm run test"
     }
+  },
+  "module": "dist/videojs-offset.es.js",
+  "vjsstandard": {
+    "ignore": [
+      "dist",
+      "docs",
+      "test/dist",
+      "test/karma.conf.js"
+    ]
   }
 }

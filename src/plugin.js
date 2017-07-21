@@ -8,6 +8,32 @@ const registerPlugin = videojs.registerPlugin || videojs.plugin;
 // const dom = videojs.dom || videojs;
 
 /**
+ * Checks whether the clip should be ended.
+ *
+ * @function onPlayerTimeUpdate
+ *
+ */
+const onPlayerTimeUpdate = function() {
+  const curr = this.currentTime();
+
+  if (curr < 0) {
+    this.currentTime(0);
+    this.play();
+  }
+  if (this._offsetEnd > 0 && curr > (this._offsetEnd - this._offsetStart)) {
+    this.off('timeupdate', onPlayerTimeUpdate);
+    this.pause();
+    this.trigger('ended');
+
+    if (!this._restartBeginning) {
+      this.currentTime(this._offsetEnd - this._offsetStart);
+    } else {
+      this.trigger('loadstart');
+      this.currentTime(0);
+    }
+  }
+};
+/**
  * Function to invoke when the player is ready.
  *
  * This is a great place for your plugin to initialize itself. When this
@@ -21,22 +47,8 @@ const registerPlugin = videojs.registerPlugin || videojs.plugin;
  *           An object of options left to the plugin author to define.
  */
 const onPlayerReady = (player, options) => {
-  player.on('timeupdate', function() {
-    const curr = this.currentTime();
-
-    if (curr < 0) {
-      this.currentTime(0);
-      this.play();
-    }
-    if (this._offsetEnd > 0 && curr > (this._offsetEnd - this._offsetStart)) {
-      this.pause();
-      if (!this._restartBeginning) {
-        this.currentTime(this._offsetEnd - this._offsetStart);
-      } else {
-        this.trigger('loadstart');
-        this.currentTime(0);
-      }
-    }
+  player.one('play', () => {
+    player.on('timeupdate', onPlayerTimeUpdate);
   });
 };
 
@@ -79,10 +91,10 @@ const offset = function(options) {
     Player.prototype.currentTime = function(seconds) {
       if (seconds !== undefined) {
         return Player.__super__.currentTime
-            .call(this, seconds + this._offsetStart) - this._offsetStart;
+          .call(this, seconds + this._offsetStart) - this._offsetStart;
       }
       return Player.__super__.currentTime
-          .apply(this, arguments) - this._offsetStart;
+        .apply(this, arguments) - this._offsetStart;
     };
 
     Player.prototype.remainingTime = function() {
