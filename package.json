@@ -1,6 +1,6 @@
 {
   "name": "videojs-offset",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.2",
   "description": "VideoJs plugin to virtually \"cut\" an ondemand video",
   "main": "dist/videojs-offset.cjs.js",
   "jsnext:main": "src/js/index.js",
