@@ -38,7 +38,7 @@ QUnit.module('videojs-offset', {
 });
 
 QUnit.test('registers itself with video.js', function(assert) {
-  assert.expect(2);
+  assert.expect(5);
 
   assert.strictEqual(
     typeof Player.prototype.offset,
@@ -58,4 +58,10 @@ QUnit.test('registers itself with video.js', function(assert) {
     this.player.duration() === 290,
     'the plugin alters video duration adjusting to start|end options'
   );
+
+  const buffered = this.player.buffered();
+
+  assert.ok(buffered.length, 'buffer has length');
+  assert.ok(buffered.start, 'buffer has start');
+  assert.ok(buffered.end, 'buffer has end');
 });
