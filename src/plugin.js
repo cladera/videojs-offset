@@ -79,7 +79,8 @@ const offset = function(options) {
       duration: Player.prototype.duration,
       currentTime: Player.prototype.currentTime,
       bufferedPercent: Player.prototype.bufferedPercent,
-      remainingTime: Player.prototype.remainingTime
+      remainingTime: Player.prototype.remainingTime,
+      buffered: Player.prototype.buffered
     };
 
     Player.prototype.duration = function() {
@@ -112,6 +113,20 @@ const offset = function(options) {
         return this._offsetEnd;
       }
       return this.duration();
+    };
+
+    Player.prototype.buffered = function() {
+      const buff = Player.__super__.buffered.call(this);
+      const ranges = [];
+
+      for (let i = 0; i < buff.length; i++) {
+        ranges[i] = [
+          Math.max(0, buff.start(i) - this._offsetStart),
+          Math.min(Math.max(0, buff.end(i) - this._offsetStart), this.duration())
+        ];
+      }
+
+      return videojs.createTimeRanges(ranges);
     };
   }
 
