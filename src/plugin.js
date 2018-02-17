@@ -1,4 +1,5 @@
 import videojs from 'video.js';
+import {version as VERSION} from '../package.json';
 
 // Default options for the plugin.
 const defaults = {};
@@ -126,6 +127,6 @@ const offset = function(options) {
 // Register the plugin with video.js.
 registerPlugin('offset', offset);
 // Include the version number.
-offset.VERSION = '__VERSION__';
+offset.VERSION = VERSION;
 
 export default offset;

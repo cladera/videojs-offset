@@ -4,8 +4,6 @@ module.exports = function(config) {
     usePhantomJS: false
   };
 
-  config.browsers = ['Chrome'];
-
   // On Travis CI, we can only run in Firefox and Chrome; so, enforce that.
   if (process.env.TRAVIS) {
     config.browsers = ['Firefox', 'travisChrome'];
@@ -22,7 +20,7 @@ module.exports = function(config) {
     frameworks: ['qunit', 'detectBrowsers'],
     files: [
       'node_modules/video.js/dist/video-js.css',
-
+      
       'node_modules/es5-shim/es5-shim.js',
       'node_modules/sinon/pkg/sinon.js',
       'node_modules/video.js/dist/video.js',

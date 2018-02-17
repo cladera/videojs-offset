@@ -10,13 +10,23 @@ import json from 'rollup-plugin-json';
 import resolve from 'rollup-plugin-node-resolve';
 
 export default {
-  moduleName: 'videojsOffset',
-  entry: 'src/plugin.js',
-  dest: 'dist/videojs-offset.js',
-  format: 'umd',
-  external: ['video.js'],
+  name: 'videojsOffset',
+  input: 'src/plugin.js',
+  output: {
+    file: 'dist/videojs-offset.js',
+    format: 'umd'
+  },
+  external: [
+    'global',
+    'global/window',
+    'global/document',
+    'video.js'
+  ],
   globals: {
-    'video.js': 'videojs'
+    'video.js': 'videojs',
+    'global': 'window',
+    'global/window': 'window',
+    'global/document': 'document'
   },
   legacy: true,
   plugins: [
@@ -40,7 +50,7 @@ export default {
         }]
       ],
       plugins: [
-        // 'external-helpers',
+        'external-helpers',
         'transform-object-assign'
       ]
     })
