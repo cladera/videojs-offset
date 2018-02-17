@@ -60,14 +60,27 @@ QUnit.test('registers itself with video.js', function(assert) {
   );
 });
 
-QUnit.test('configure start and end as as strings', function(assert) {
-  assert.expect(2);
+QUnit.test('remaining time', function(assert) {
+  assert.expect(1);
 
-  assert.strictEqual(
-    typeof Player.prototype.offset,
-    'function',
-    'videojs-offset plugin was registered'
+  this.player.offset({
+    start: 10,
+    end: 300
+  });
+
+  // Tick the clock forward enough to trigger the player to be "ready".
+  this.clock.tick(1);
+
+  this.player.currentTime(2);
+
+  assert.ok(
+    this.player.remainingTime() === 288,
+    'the plugin alters remaining time'
   );
+});
+
+QUnit.test('configure start and end as as strings', function(assert) {
+  assert.expect(1);
 
   this.player.offset({
     start: '10.5',

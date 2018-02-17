@@ -94,22 +94,13 @@ const offset = function(options) {
         return Player.__super__.currentTime
           .call(this, seconds + this._offsetStart);
       }
-      const curr = Player.__super__.currentTime
-        .apply(this);
 
-      if (curr > this._offsetStart) {
-        return curr - this._offsetStart;
-      }
-      return 0;
+      return Player.__super__.currentTime
+        .apply(this) - this._offsetStart;
     };
 
     Player.prototype.remainingTime = function() {
-      let curr = this.currentTime();
-
-      if (curr < this._offsetStart) {
-        curr = 0;
-      }
-      return this.duration() - curr;
+      return this.duration() - this.currentTime();
     };
 
     Player.prototype.startOffset = function() {
