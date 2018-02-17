@@ -69,8 +69,8 @@ const offset = function(options) {
   options = options || {};
   const Player = this.constructor;
 
-  this._offsetStart = options.start || 0;
-  this._offsetEnd = options.end || 0;
+  this._offsetStart = parseFloat(options.start) || 0;
+  this._offsetEnd = parseFloat(options.end) || 0;
   this._restartBeginning = options.restart_beginning || false;
 
   if (!Player.__super__ || !Player.__super__.__offsetInit) {
