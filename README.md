@@ -1,33 +1,25 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [videojs-offset](#videojs-offset)
-  - [Installation](#installation)
-  - [Usage](#usage)
-    - [`<script>` Tag](#script-tag)
-    - [Browserify](#browserify)
-    - [RequireJS/AMD](#requirejsamd)
-  - [License](#license)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # videojs-offset
 
-[![Build Status](https://travis-ci.org/cladera/videojs-offset.svg?branch=master)](https://travis-ci.org/cladera/videojs-offset)
+VideoJs plugin to virtually &#34;cut&#34; an ondemand video
 
-[![npm version](https://badge.fury.io/js/videojs-offset.svg)](https://badge.fury.io/js/videojs-offset)
+## Table of Contents
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Installation
+
+- [Installation](#installation)
+- [Usage](#usage)
+  - [`<script>` Tag](#script-tag)
+  - [Browserify/CommonJS](#browserifycommonjs)
+  - [RequireJS/AMD](#requirejsamd)
+- [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 ## Installation
 
 ```sh
 npm install --save videojs-offset
-```
-
-The npm installation is preferred, but Bower works, too.
-
-```sh
-bower install  --save videojs-offset
 ```
 
 ## Usage
@@ -52,7 +44,7 @@ This is the simplest case. Get the script in whatever way you prefer and include
 </script>
 ```
 
-### Browserify
+### Browserify/CommonJS
 
 When using with Browserify, install videojs-offset via npm and `require` the plugin as you would any other module.
 
@@ -91,7 +83,7 @@ require(['video.js', 'videojs-offset'], function(videojs) {
 
 ## License
 
-MIT. Copyright 2017(c) Carles Galan Cladera &lt;cgcladera@gmail.com&gt;
+MIT. Copyright (c) Carles Galan Cladera &lt;cgcladera@gmail.com&gt;
 
 
 [videojs]: http://videojs.com/
