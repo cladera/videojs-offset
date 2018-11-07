@@ -22,7 +22,6 @@ const onPlayerTimeUpdate = function() {
     this.play();
   }
   if (this._offsetEnd > 0 && curr > (this._offsetEnd - this._offsetStart)) {
-    this.off('timeupdate', onPlayerTimeUpdate);
     this.pause();
     this.trigger('ended');
 
