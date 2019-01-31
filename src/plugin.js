@@ -84,20 +84,29 @@ const offset = function(options) {
     };
 
     Player.prototype.duration = function() {
-      if (this._offsetEnd > 0) {
-        return this._offsetEnd - this._offsetStart;
+      if (this._offsetEnd !== undefined && this._offsetStart !== undefined) {
+        if (this._offsetEnd > 0) {
+          return this._offsetEnd - this._offsetStart;
+        }
+        return Player.__super__.duration.apply(this, arguments) - this._offsetStart;
       }
-      return Player.__super__.duration.apply(this, arguments) - this._offsetStart;
+      return Player.__super__.duration.apply(this, arguments);
     };
 
     Player.prototype.currentTime = function(seconds) {
       if (seconds !== undefined) {
-        return Player.__super__.currentTime
-          .call(this, seconds + this._offsetStart);
+        if (this._offsetStart !== undefined) {
+          return Player.__super__.currentTime
+            .call(this, seconds + this._offsetStart);
+        }
+        return Player.__super__.currentTime.call(this, seconds);
       }
 
-      return Player.__super__.currentTime
-        .apply(this) - this._offsetStart;
+      if (this._offsetStart !== undefined) {
+        return Player.__super__.currentTime
+          .apply(this) - this._offsetStart;
+      }
+      return Player.__super__.currentTime.apply(this);
     };
 
     Player.prototype.remainingTime = function() {
