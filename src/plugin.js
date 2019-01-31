@@ -91,12 +91,18 @@ const offset = function(options) {
 
     Player.prototype.currentTime = function(seconds) {
       if (seconds !== undefined) {
-        return Player.__super__.currentTime
+        if(this._offsetStart !== undefined){
+          return Player.__super__.currentTime
           .call(this, seconds + this._offsetStart);
+        }
+        return Player.__super__.currentTime.call(this, seconds);
       }
 
-      return Player.__super__.currentTime
+      if(this._offsetStart !== undefined){
+        return Player.__super__.currentTime
         .apply(this) - this._offsetStart;
+      }
+      return Player.__super__.currentTime.apply(this);
     };
 
     Player.prototype.remainingTime = function() {
