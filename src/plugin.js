@@ -83,7 +83,7 @@ const offset = function(options) {
     };
 
     Player.prototype.duration = function() {
-      if(this._offsetEnd !== undefined && this._offsetStart !== undefined) {
+      if (this._offsetEnd !== undefined && this._offsetStart !== undefined) {
         if (this._offsetEnd > 0) {
           return this._offsetEnd - this._offsetStart;
         }
@@ -94,14 +94,14 @@ const offset = function(options) {
 
     Player.prototype.currentTime = function(seconds) {
       if (seconds !== undefined) {
-        if(this._offsetStart !== undefined){
+        if (this._offsetStart !== undefined) {
           return Player.__super__.currentTime
           .call(this, seconds + this._offsetStart);
         }
         return Player.__super__.currentTime.call(this, seconds);
       }
 
-      if(this._offsetStart !== undefined){
+      if (this._offsetStart !== undefined) {
         return Player.__super__.currentTime
         .apply(this) - this._offsetStart;
       }
