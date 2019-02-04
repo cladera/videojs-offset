@@ -3,16 +3,19 @@
     "bcov": false,
     "scope": "",
     "name": "offset",
-    "description": "VideoJs plugin to virtually \"cut\" an ondemand video",
+    "description": "",
     "author": "Carles Galan Cladera <cgcladera@gmail.com>",
     "license": "mit",
     "css": false,
     "ie8": true,
     "docs": true,
     "lang": false,
-    "bower": true,
+    "bower": false,
     "ghooks": "test",
     "sass": false,
-    "husky": "test"
+    "husky": "test",
+    "prepush": false,
+    "precommit": true,
+    "pluginType": "advanced"
   }
 }
