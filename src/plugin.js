@@ -96,14 +96,14 @@ const offset = function(options) {
       if (seconds !== undefined) {
         if (this._offsetStart !== undefined) {
           return Player.__super__.currentTime
-          .call(this, seconds + this._offsetStart);
+            .call(this, seconds + this._offsetStart);
         }
         return Player.__super__.currentTime.call(this, seconds);
       }
 
       if (this._offsetStart !== undefined) {
         return Player.__super__.currentTime
-        .apply(this) - this._offsetStart;
+          .apply(this) - this._offsetStart;
       }
       return Player.__super__.currentTime.apply(this);
     };
