@@ -79,24 +79,34 @@ const offset = function(options) {
       duration: Player.prototype.duration,
       currentTime: Player.prototype.currentTime,
       bufferedPercent: Player.prototype.bufferedPercent,
-      remainingTime: Player.prototype.remainingTime
+      remainingTime: Player.prototype.remainingTime,
+      buffered: Player.prototype.buffered
     };
 
     Player.prototype.duration = function() {
-      if (this._offsetEnd > 0) {
-        return this._offsetEnd - this._offsetStart;
+      if (this._offsetEnd !== undefined && this._offsetStart !== undefined) {
+        if (this._offsetEnd > 0) {
+          return this._offsetEnd - this._offsetStart;
+        }
+        return Player.__super__.duration.apply(this, arguments) - this._offsetStart;
       }
-      return Player.__super__.duration.apply(this, arguments) - this._offsetStart;
+      return Player.__super__.duration.apply(this, arguments);
     };
 
     Player.prototype.currentTime = function(seconds) {
       if (seconds !== undefined) {
-        return Player.__super__.currentTime
-          .call(this, seconds + this._offsetStart);
+        if (this._offsetStart !== undefined) {
+          return Player.__super__.currentTime
+            .call(this, seconds + this._offsetStart);
+        }
+        return Player.__super__.currentTime.call(this, seconds);
       }
 
-      return Player.__super__.currentTime
-        .apply(this) - this._offsetStart;
+      if (this._offsetStart !== undefined) {
+        return Player.__super__.currentTime
+          .apply(this) - this._offsetStart;
+      }
+      return Player.__super__.currentTime.apply(this);
     };
 
     Player.prototype.remainingTime = function() {
@@ -112,6 +122,20 @@ const offset = function(options) {
         return this._offsetEnd;
       }
       return this.duration();
+    };
+
+    Player.prototype.buffered = function() {
+      const buff = Player.__super__.buffered.call(this);
+      const ranges = [];
+
+      for (let i = 0; i < buff.length; i++) {
+        ranges[i] = [
+          Math.max(0, buff.start(i) - this._offsetStart),
+          Math.min(Math.max(0, buff.end(i) - this._offsetStart), this.duration())
+        ];
+      }
+
+      return videojs.createTimeRanges(ranges);
     };
   }
 

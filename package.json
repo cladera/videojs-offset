@@ -1,6 +1,6 @@
 {
   "name": "videojs-offset",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "",
   "main": "dist/videojs-offset.cjs.js",
   "jsnext:main": "src/js/index.js",
@@ -56,7 +56,7 @@
   },
   "devDependencies": {
     "@videojs/generator-helpers": "~1.0.0",
-    "jsdoc": "BrandonOCasey/jsdoc#fix/security-issue",
+    "jsdoc": "github:BrandonOCasey/jsdoc#fix/security-issue",
     "karma": "^3.0.0",
     "rollup": "^1.1.0",
     "sinon": "^7.2.2",
