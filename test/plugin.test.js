@@ -29,11 +29,13 @@ QUnit.module('videojs-offset', {
     this.video = document.createElement('video');
     this.fixture.appendChild(this.video);
     this.player = videojs(this.video);
+    this.sandbox = sinon.createSandbox();
   },
 
   afterEach() {
     this.player.dispose();
     this.clock.restore();
+    this.sandbox.restore();
   }
 });
 
@@ -103,7 +105,9 @@ QUnit.test('should override buffered method', function(assert) {
 
   const initRange = videojs.createTimeRanges([[0, 30]]);
 
-  const bufferedStub = sinon.stub(Player.__super__, 'buffered').returns(initRange);
+  this.sandbox
+    .stub(Player.__super__, 'buffered')
+    .returns(initRange);
 
   this.player.offset({
     start: 5,
@@ -114,7 +118,28 @@ QUnit.test('should override buffered method', function(assert) {
 
   assert.ok(buff.start(0) === 0, 'start should be 0. Actual: ' + buff.start(0));
   assert.ok(buff.end(0) === 20, 'end equal to video duration. Actual: ' + buff.end(0));
-
-  bufferedStub.restore();
 });
 
+QUnit.test('start offset and end offset getters', function(assert) {
+  assert.expect(3);
+
+  this.player.offset({
+    start: 10,
+    end: 300
+  });
+
+  assert.ok(this.player.startOffset() === 10, 'should return start offset');
+  assert.ok(this.player.endOffset() === 300, 'should return end offset');
+
+  // Reset the player instance
+  this.player = videojs(this.video);
+
+  this.sandbox.stub(this.player, 'duration').returns(500);
+
+  this.player.offset({
+    start: 10
+  });
+
+  assert.ok(this.player.endOffset() === 500, 'should return the video duration');
+
+});
