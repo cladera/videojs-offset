@@ -26,6 +26,11 @@ const onPlayerTimeUpdate = function() {
     this.pause();
     this.trigger('ended');
 
+    // Re-bind to timeupdate next time the video plays
+    this.one('play', () => {
+      this.on('timeupdate', onPlayerTimeUpdate);
+    });
+
     if (!this._restartBeginning) {
       this.currentTime(this._offsetEnd - this._offsetStart);
     } else {
