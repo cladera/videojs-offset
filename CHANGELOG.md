@@ -1,3 +1,12 @@
+<a name="2.1.2"></a>
+## [2.1.2](https://github.com/cladera/videojs-offset/compare/v2.1.1...v2.1.2) (2019-06-09)
+
+### Bug Fixes
+
+* cover buffered override ([ea0a25f](https://github.com/cladera/videojs-offset/commit/ea0a25f))
+* cover startOffset and endOffset getters ([a4ea42e](https://github.com/cladera/videojs-offset/commit/a4ea42e))
+* video doesn't stop at specific time ([6fd6c01](https://github.com/cladera/videojs-offset/commit/6fd6c01)), closes [#34](https://github.com/cladera/videojs-offset/issues/34)
+
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/cladera/videojs-offset/compare/v2.1.0...v2.1.1) (2019-02-08)
 
