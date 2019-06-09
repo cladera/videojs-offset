@@ -98,3 +98,23 @@ QUnit.test('configure start and end as as strings', function(assert) {
   );
 });
 
+QUnit.test('should override buffered method', function(assert) {
+  assert.expect(2);
+
+  const initRange = videojs.createTimeRanges([[0, 30]]);
+
+  const bufferedStub = sinon.stub(Player.__super__, 'buffered').returns(initRange);
+
+  this.player.offset({
+    start: 5,
+    end: 25
+  });
+
+  const buff = this.player.buffered();
+
+  assert.ok(buff.start(0) === 0, 'start should be 0. Actual: ' + buff.start(0));
+  assert.ok(buff.end(0) === 20, 'end equal to video duration. Actual: ' + buff.end(0));
+
+  bufferedStub.restore();
+});
+
