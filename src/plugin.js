@@ -108,8 +108,10 @@ const offset = function(options) {
       }
 
       if (this._offsetStart !== undefined) {
-        return Player.__super__.currentTime
+        const t = Player.__super__.currentTime
           .apply(this) - this._offsetStart;
+        this.getCache().currentTime = t;
+        return t;
       }
       return Player.__super__.currentTime.apply(this);
     };
