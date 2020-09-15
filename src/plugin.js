@@ -77,6 +77,9 @@ const offset = function(options) {
   this._offsetStart = parseFloat(options.start || '0');
   this._offsetEnd = parseFloat(options.end || '0');
   this._restartBeginning = options.restart_beginning || false;
+  
+  this.currentTime(0);
+  this.getCache().initTime = 0;
 
   if (!Player.__super__ || !Player.__super__.__offsetInit) {
     Player.__super__ = {
