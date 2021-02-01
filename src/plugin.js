@@ -39,6 +39,33 @@ const onPlayerTimeUpdate = function() {
     }
   }
 };
+
+const isOutside = (player) => player._offsetEnd !== null && player.currentTime() + 0.001 >= player._offsetEnd - (player._offsetStart || 0);
+
+const onPause = function() {
+  if (isOutside(this)) {
+    this.trigger('loadstart');
+  }
+};
+
+const onPlay = function() {
+  if (isOutside(this)) {
+    this.currentTime(0);
+  }
+};
+
+const onCanPlay = function() {
+  if (isOutside(this)) {
+    this.trigger('ended');
+  }
+};
+
+const onCanPlayThrough = function() {
+  if (isOutside(this)) {
+    this.trigger('ended');
+  }
+};
+
 /**
  * Function to invoke when the player is ready.
  *
@@ -56,6 +83,17 @@ const onPlayerReady = (player, options) => {
   player.one('play', () => {
     player.on('timeupdate', onPlayerTimeUpdate);
   });
+
+  // add the listeners if not already added
+  player.off('pause', onPause);
+  player.off('play', onPlay);
+  player.off('canplay', onCanPlay);
+  player.off('canplaythrough', onCanPlayThrough);
+
+  player.on('pause', onPause);
+  player.on('play', onPlay);
+  player.on('canplay', onCanPlay);
+  player.on('canplaythrough', onCanPlayThrough);
 };
 
 /**
