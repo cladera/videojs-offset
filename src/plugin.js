@@ -40,7 +40,9 @@ const onPlayerTimeUpdate = function() {
   }
 };
 
-const isOutside = (player) => player._offsetEnd !== null && player.currentTime() + 0.001 >= player._offsetEnd - (player._offsetStart || 0);
+const isOutside = (player) =>
+  player._offsetEnd !== null && player._offsetEnd !== 0 &&
+  player.currentTime() + 0.001 >= player._offsetEnd - (player._offsetStart || 0);
 
 const onPause = function() {
   if (isOutside(this)) {
