@@ -1,6 +1,6 @@
 {
   "name": "@prezi/videojs-offset",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "description": "",
   "main": "dist/videojs-offset.cjs.js",
   "jsnext:main": "src/js/index.js",
