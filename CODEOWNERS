@@ -1,0 +1,2 @@
+# In the CODOWNERS file, lines below will override rights set above, so broader rules go on top, specific rules need to go below.
+*                 @prezi/activation @prezi/marea @prezi-code-change-bot
