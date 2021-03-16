@@ -1,3 +1,11 @@
+<a name="2.1.3"></a>
+## [2.1.3](https://github.com/cladera/videojs-offset/compare/v2.1.2...v2.1.3) (2021-03-16)
+
+### Bug Fixes
+
+* update currentTime value in Video.js cache ([5f44f3e](https://github.com/cladera/videojs-offset/commit/5f44f3e)), closes [#43](https://github.com/cladera/videojs-offset/issues/43)
+
+
 <a name="2.1.2"></a>
 ## [2.1.2](https://github.com/cladera/videojs-offset/compare/v2.1.1...v2.1.2) (2019-06-09)
 
